@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <properties resource="mbg_config.properties" />  
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+    	<!-- 序列化 -->
+    	<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />  
+    	<plugin type="generatecode.MyBatisCenPlugin" >
+			<property name="searchString" value="Mapper" />
+			<property name="replaceString" value="WriterMapper" />
+    		<property name="extMapperTargetPackage" value="com.mayi.pos.core.persistence.writer.ext.product" />
+			<property name="extMapperTargetProject" value="${extMapperTargetProject}" />
+			<property name="extSqlMapTargetProject" value="${extSqlMapTargetProject}" />
+			<property name="extMapperSuffix" value="${extWriterMapperSuffix}"/>
+    		<property name="voTargetPackage" value="com.mayi.pos.api.domain.vo.product" />
+			<property name="voTargetProject" value="${voTargetProject}" />
+    	</plugin>  
+        <!-- 去除自动生成的注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="${jdbc.driverClassName}" connectionURL="${jdbc.url}"
+        	 userId="${jdbc.username}" password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.mayi.pos.api.domain.product"
+            targetProject="${javaModelTargetProject}">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.mayi.pos.core.persistence.writer.base.product"
+            targetProject="${sqlMapTargetProject}">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+       <javaClientGenerator type="XMLMAPPER"
+            targetPackage="com.mayi.pos.core.persistence.writer.base.product"
+            targetProject="${javaClientTargetProject}">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+         
+           <table tableName="profit_sn_config" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="inventory_sn_config" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <!--   
+        <table tableName="profit_loss_detail" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="inventory_info" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="inventory_detail" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table> -->
+        <!--  
+        <table tableName="product_goods" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+			<generatedKey column="product_goods_id" sqlStatement="JDBC" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="product_info" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+			<generatedKey column="product_id" sqlStatement="JDBC" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="product_category" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="product_goods_special_price" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="shop_product_goods_special_price" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="shop_product_category" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+			<generatedKey column="category_id" sqlStatement="JDBC" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        <table tableName="shop_product_relationship" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+        </table>
+        -->
+    </context>
+</generatorConfiguration>

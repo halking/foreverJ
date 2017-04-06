@@ -8,4 +8,24 @@
   <artifactId>forJ-test</artifactId>
   <name>forJ-test</name>
   <description>a test project</description>
+  <dependencies>
+			<dependency>
+				<groupId>com.hal.project</groupId>
+				<artifactId>forJ-api</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+					<dependency>
+				<groupId>com.hal.project</groupId>
+				<artifactId>forJ-common</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+					<dependency>
+				<groupId>com.hal.project</groupId>
+				<artifactId>forJ-core</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+	</dependencies>
 </project>

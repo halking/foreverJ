@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- 控制台的日志记录 -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}]--[%-5p]--[%t]: %c%l ----- %m%n" />
+		</layout>
+	</appender>
+        <!-- 文件的日志记录 -->
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="../logs/syetem.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] --[%-5p]--[%t]: %c%l ------ %m%n" />
+		</layout>
+	</appender>
+	<!-- name要对应字节码文件所在的包路径，只会记录该包路径下的代码的日志 -->
+	<logger name="org.hal">
+		<level value="debug,info,error" />
+		<appender-ref ref="file"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- Root Logger -->
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>

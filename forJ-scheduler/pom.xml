@@ -5,8 +5,7 @@
     <artifactId>ForeverJ</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>forJ-common</artifactId>
-  <packaging>jar</packaging>
-  <name>forJ-common</name>
-  <description>a common project</description>
+  <artifactId>forJ-scheduler</artifactId>
+  <name>forJ::scheduler</name>
+  <description>a scheduler project</description>
 </project>
