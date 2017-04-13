@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
-
-	<!-- import the dao definition -->
-	<import resource="reader-config.xml" />
-	<import resource="writer-config.xml" />
-	<import resource="jdbc-config.xml"  />
-	<import resource="spring-redis.xml" />
-	
-	<!-- 启用spring注解 -->
-	<context:annotation-config />
-	<context:component-scan base-package="org.hal.forj" />
-	<!-- 初始化SpringUtil 方便获取IOC bean -->
-	<bean id="springUtil" class="com.mayi.pos.common.util.SpringUtils" />
-
-	<bean id="propertyConfigurer" class="com.mayi.pos.common.util.PropertyUtils">
+	<bean id="propertyConfigurer" class="org.hal.forj.common.util.PropertyUtils">
 		<property name="locations">
 			<list>
 				<value>classpath:system*.properties</value>
@@ -30,72 +17,69 @@
 		</property>
 	</bean>
 	
-	 <!-- 邮件发送配置  -->
-    <bean id="simpleMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-         
-        <property name="host" value="smtp.exmail.qq.com"/>
-        <!-- 群发是26端口，单发25，27都行 -->
-        <property name="port" value="25"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.timeout">25000</prop>
-            </props>
-        </property>
-        <property name="username" value="381763563@qq.com"/>
-        <property name="password" value="hal"/>
-    </bean>    
-    
-<!-- 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <props>
-                <prop key="resource.loader">class</prop>
-                <prop key="class.resource.loader.class">
-                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-                </prop>
-            </props>
-        </property>
-    </bean> 
+	<!-- import the dao definition -->
+	<import resource="reader-config.xml" />
+	<import resource="writer-config.xml" />
+	<import resource="jdbc-config.xml" />
+	<import resource="spring-redis.xml" />
+	<import resource="spring-jms.xml" />
 
-    <bean id="coreMailSender" class="com.mayi.pos.common.mail.CoreMailSender">
-        <property name="simpleMailSender" ref="simpleMailSender"/>
-        <property name="velocityEngine" ref="velocityEngine"/>
-    </bean> -->
-    
-    <!-- 配置com.spring.service包下所有类或接口的所有方法-->
-	<bean id="rollBackAspectBean" class="com.mayi.pos.core.aop.RollBackAspect"></bean>
+	<!-- 启用spring注解 -->
+	<context:annotation-config />
+	<context:component-scan base-package="org.hal.forj" />
+	<!-- 初始化SpringUtil 方便获取IOC bean -->
+	<!-- <bean id="springUtil" class="com.mayi.pos.common.util.SpringUtils" /> -->
+
+	<!-- 邮件发送配置 -->
+	<bean id="simpleMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+
+		<property name="host" value="smtp.exmail.qq.com" />
+		<!-- 群发是26端口，单发25，27都行 -->
+		<property name="port" value="25" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+		<property name="username" value="381763563@qq.com" />
+		<property name="password" value="hal" />
+	</bean>
+
+	<!-- <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean"> <property name="velocityProperties"> 
+		<props> <prop key="resource.loader">class</prop> <prop key="class.resource.loader.class"> org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader 
+		</prop> </props> </property> </bean> <bean id="coreMailSender" class="com.mayi.pos.common.mail.CoreMailSender"> <property 
+		name="simpleMailSender" ref="simpleMailSender"/> <property name="velocityEngine" ref="velocityEngine"/> </bean> -->
+
+	<!-- 配置com.spring.service包下所有类或接口的所有方法 -->
+	<bean id="rollBackAspectBean" class="org.hal.forj.aop.RollBackAspect"></bean>
 	<aop:config>
 		<aop:aspect id="rollBackAspect" ref="rollBackAspectBean">
-			<aop:pointcut id="updateService"
-				expression="execution(* com.mayi.pos.api.service.*.*.transaction*(..))" />
+			<aop:pointcut id="updateService" expression="execution(* org.hal.forj.api.service.*.*.transaction*(..))" />
 			<aop:before pointcut-ref="updateService" method="doBefore" />
 			<aop:after pointcut-ref="updateService" method="doAfter" />
 			<aop:around pointcut-ref="updateService" method="doAround" />
-			<aop:after-throwing pointcut-ref="updateService"
-				method="doThrowing" throwing="ex" />
+			<aop:after-throwing pointcut-ref="updateService" method="doThrowing" throwing="ex" />
 		</aop:aspect>
 	</aop:config>
 
-	<bean id="notRollBackAspectBean" class="com.mayi.pos.core.aop.NotRollBackAspect"></bean>
+	<bean id="notRollBackAspectBean" class="org.hal.forj.aop.NotRollBackAspect"></bean>
 	<aop:config>
 		<aop:aspect id="notRollBackAspect" ref="notRollBackAspectBean">
 			<aop:pointcut id="getService"
-				expression="execution(* com.mayi.pos.api.service.*.*.*(..))
-				&amp;&amp;!execution(* com.mayi.pos.api.service.*.*.transaction*(..))" />
+				expression="execution(* org.hal.forj.api.service.*.*.*(..))
+				&amp;&amp;!execution(* org.hal.forj.api.service.*.*.transaction*(..))" />
 			<aop:before pointcut-ref="getService" method="doBefore" />
 			<aop:after pointcut-ref="getService" method="doAfter" />
 			<aop:around pointcut-ref="getService" method="doAround" />
-			<aop:after-throwing pointcut-ref="getService"
-				method="doThrowing" throwing="ex" />
+			<aop:after-throwing pointcut-ref="getService" method="doThrowing" throwing="ex" />
 		</aop:aspect>
 	</aop:config>
- 
+
 	<!-- 配置_Druid和Spring关联监控配置 -->
-	<bean id="druid-stat-interceptor"
-		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
 	</bean>
-	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
-		scope="prototype">
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
 		<property name="patterns">
 			<list>
 				<value>org.hal.forj.service.*</value>
@@ -103,8 +87,7 @@
 		</property>
 	</bean>
 	<aop:config proxy-target-class="true">
-		<aop:advisor advice-ref="druid-stat-interceptor"
-			pointcut-ref="druid-stat-pointcut" />
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
 
 </beans>

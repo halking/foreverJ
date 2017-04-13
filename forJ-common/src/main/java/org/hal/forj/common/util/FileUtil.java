@@ -396,12 +396,12 @@ public class FileUtil extends FileUtils {
 	 * @param file 要写入的文件
 	 */
 	public static void writeToFile(String fileName, String content, boolean append) {
-		try {
+	/*	try {
 			FileUtils.write(new File(fileName), content, "utf-8", append);
 			logger.debug("文件 " + fileName + " 写入成功!");
 		} catch (IOException e) {
 			logger.debug("文件 " + fileName + " 写入失败! " + e.getMessage());
-		}
+		}*/
 	}
 
 	/**
@@ -409,12 +409,12 @@ public class FileUtil extends FileUtils {
 	 * @param file 要写入的文件
 	 */
 	public static void writeToFile(String fileName, String content, String encoding, boolean append) {
-		try {
+		/*try {
 			FileUtil.write(new File(fileName), content, encoding, append);
 			logger.debug("文件 " + fileName + " 写入成功!");
 		} catch (IOException e) {
 			logger.debug("文件 " + fileName + " 写入失败! " + e.getMessage());
-		}
+		}*/
 	}
 	
 	/**

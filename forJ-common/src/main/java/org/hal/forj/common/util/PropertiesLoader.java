@@ -13,6 +13,7 @@ import java.util.Properties;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -22,7 +23,7 @@ import org.springframework.core.io.ResourceLoader;
  * @author calvin
  * @version 2013-05-15
  */
-public class PropertiesLoader {
+public class PropertiesLoader extends PropertyPlaceholderConfigurer{
 
 	private static Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);
 
