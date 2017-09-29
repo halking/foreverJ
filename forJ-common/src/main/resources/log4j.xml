@@ -7,7 +7,7 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}]--[%-5p]--[%t]: %c%l ----- %m%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}]--[%-5p]--[%t]: %l ----- %m%n" />
 		</layout>
 	</appender>
         <!-- 文件的日志记录 -->
@@ -16,7 +16,7 @@
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] --[%-5p]--[%t]: %c%l ------ %m%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] --[%-5p]--[%t]: %l ------ %m%n" />
 		</layout>
 	</appender>
 	<!-- name要对应字节码文件所在的包路径，只会记录该包路径下的代码的日志 -->
